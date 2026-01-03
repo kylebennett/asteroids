@@ -1,5 +1,5 @@
 import pygame, sys
-from constants import SCREEN_HEIGHT, SCREEN_WIDTH
+from constants import SCREEN_HEIGHT, SCREEN_WIDTH, BG_COLOUR
 from logger import log_state, log_event
 from player import Player
 from asteroid import Asteroid
@@ -36,7 +36,7 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-        screen.fill("black")
+        screen.fill(BG_COLOUR)
 
         updatable.update(dt)
 
@@ -46,10 +46,15 @@ def main():
                 print("Game Over!!!")
                 sys.exit(0)
             
+            for other_asteroid in asteroids:
+                if asteroid != other_asteroid and asteroid.collides_with(other_asteroid):
+                    asteroid.bounce(dt)
+                    other_asteroid.bounce(dt)
+            
             for shot in shots:
                 if asteroid.collides_with(shot):
                     log_event("asteroid_shot")
-                    asteroid.split()
+                    asteroid.split(dt)
                     shot.kill()
         
         for sprite in drawable:
