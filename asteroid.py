@@ -38,9 +38,11 @@ class Asteroid(CircleShape):
         new_asteroid_2.velocity = new_velocity_2 * 1.2
         new_asteroid_2.position += new_asteroid_2.velocity * 3 * dt
 
-    def bounce(self, dt):
+    def bounce(self, dt, direction):
         log_event("asteroid_bounce")
-        new_angle = random.uniform(-30, 30)
+        new_angle = random.uniform(0, 30)
+        if direction > 0:
+            new_angle = -new_angle
         self.velocity = -self.velocity.rotate(new_angle)
         self.position += self.velocity * dt
 

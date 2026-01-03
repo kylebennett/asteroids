@@ -50,8 +50,8 @@ def main():
             
             for other_asteroid in asteroids:
                 if asteroid != other_asteroid and asteroid.collides_with(other_asteroid):
-                    asteroid.bounce(dt)
-                    other_asteroid.bounce(dt)
+                    asteroid.bounce(dt, 1)
+                    other_asteroid.bounce(dt, 0)
             
             for shot in shots:
                 if asteroid.collides_with(shot):
